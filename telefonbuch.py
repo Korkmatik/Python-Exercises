@@ -1,55 +1,68 @@
 import pickle
 
-# def suche():
+def suche(tel):
+    """Diese Funktion sucht ob ein bestimmter Kontakt im Telefonbuch enthalten ist"""
+    name = input("Name: ")
+    if tel.get(name):
+        print("Nummer:", tel.get(name), end='\n\n')
+    else:
+        print("Name unbekannt\n")
 
-# def neueNummer():
+def neueNummer(tel):
+    """Diese Funktion schreibt einen neuen Kontakt in das Telefonbuch"""
+    # Eingabe des neuen Kontakts
+    name = input("Name: ")
+    nummer = input("Nummer: ")
 
-# def ausgabeNummern():
+    # Speichern des neuen Kontakts
+    tel[name] = nummer
+    
+    file = open("tel.dmp", 'wb')
+    pickle.dump(tel, file)
+    file.close()
 
-def beenden(datei, # File in die Daten des Wörterbuchs geschrieben werden soll
-            dic    # Wörterbuch aus der die Daten kommen
-            ):
-    pickle.dump(dic, datei)
-    datei.close()
+    print("Neuer Eintrag gespeichert\n")
     
 
-def initialisieren(tel, # Bekommt ein Dictionary in das die Daten geladen werden
-                   ):
-    """Hier werden sämtliche Vorkehrungen getroffen, bevor das Programm vom
-       Benutzer benutzt werden darf
-       Aufgaben: Telefonbuch öffnen
-                 Daten in Wörterbuch schreiben
-       Rückgabetyp: FILE"""
-    try:
-        file = open("tel.dmp", 'rb')
-    except FileNotFoundError:
-        print("Telefonbuch existiert nicht")
+def ausgabeNummern(tel):
+    print("Name\t\t\tNummer")
+    print(40 * "_")
+    for i in tel.keys():
+        print(i + "\t\t\t" + tel.get(i))
+    print()
 
-    eingabe = ""
-    tel = pickle.load(file)
+def beenden(tel  # Wörterbuch aus der die Daten kommen
+            ):
+    file = open("tel.dmp", 'wb')
+    pickle.dump(tel, file)
+    file.close()
+    print("Danke, dass Sie dieses Produkt verwendet haben\n")
 
-    return file
-
-tel = {}
-file = initialisieren(tel)
+# Initialisieren der Anfangswerte
+eingabe  = ""
+telefonfile = open("tel.dmp", 'rb')
+tel = pickle.load(telefonfile) # Schreiben des Telefonbuchs in ein Wörterbuch
+telefonfile.close()
 
 while eingabe != 'e':
 
     print("(S)uche nach Telefonnummer")
     print("(N)eue Nummer eintragen")
     print("(A)lle Nummern ausgeben")
-    print("(E)nde")
+    print("(E)nde\n")
 
     eingabe = input("Ihre Wahl: ")
     eingabe.lower()
 
     if eingabe == 's':
-        #suche()
-    #elif eingabe == 'n':
-        #neueNummer()
-    #elif eingabe == 'a':
-        #ausgabeNummern()
+        suche(tel)
+    elif eingabe == 'n':
+        neueNummer(tel)
+    elif eingabe == 'a':
+        ausgabeNummern(tel)
+    elif eingabe == 'e':
+        continue
     else:
         print("Ungültige Eingabe!")
 
-beenden()
+beenden(tel)
