@@ -9,7 +9,7 @@ class Laenge:
                 'in': 0.0254, 'ft': 0.3048, 'yd': 0.9143, 'mil': 1609}
     
     def __init__(self, betrag, einheit):
-        self.betrag = betrag
+        self.betrag = float(betrag)
         self.einheit = einheit
 
     def getMeter(self):
@@ -32,5 +32,15 @@ class Laenge:
         return self.getMeter() == laenge.getMeter()
 
     def __str__(self):
-        return str(self.betrag) + ' ' + self.einheit
+        return format(self.betrag, '.2f') + ' ' + self.einheit
     
+# Testumgebung
+if __name__ == '__main__':
+    s1 = Laenge(40, 'm')
+    s2 = Laenge(1, 'km')
+
+    print('s1 < s2:', s1 < s2)
+    print('s1 + s2:', s1 + s2)
+    s1 += s2
+    print('s1 < s2:', s1 < s2)
+    print(s1, s2, sep='\n')
