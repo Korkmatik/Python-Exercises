@@ -1,35 +1,49 @@
-import os
-import re
+from os.path import join, normcase
+from os import walk
+
+SUCHBERICHT = """
+ Suchbericht
+ -----------
+ {}
+ Es wurden {} Dateien durchsucht.
+ {} Dateien waren nicht lesbar.
+ """
 
 class Suchroboter:
-    def __init__(self, wort, wurzel):
-        self.__wort = wort
-        self.__wurzel = wurzel
-        self.__pfade = {}
+    def __init__(self, suchwort, wurzel):
+        self.ergebnis = []
+        self.suchwort = suchwort
+        self.wurzel = wurzel
+        self.nicht_lesbar = 0
+        self.durchsucht = 0
+        liste = walk(wurzel)
 
-        self.__suche()
+        for pfad, verzeichnis, dateien in liste:
+            for datei in dateien:
+                self.durchsucht += 1
+                try:
+                    f = open(join(pfad, datei), 'r')
+                    text = f.read()
+                    f.close()
+                    n = text.count(suchwort)
+                    if n > 0:
+                        p = normcase(join(pfad, datei))
+                        self.ergebnis += [(n, p)]
+                except:
+                    self.nicht_lesbar += 1
 
-    def __suche(self):
-        dateien = os.walk(self.__wurzel)
-        re = compile('[.,:;?!]' + '\s')
-
-        for pfad, unterverzeichnis, datei in dateien:
-                f = open(datei, 'r')
-                liste = f.read()
-                f.close()
-                re.split(liste) # zerlegen der liste in einzelne wörter
-
-                for self.__wort in liste:
-                    if self.__pfade.get(os.path.join(pfad, datei)):
-                        self.__pfade[os.path.join(pfad, datei)] += 1
-                    else:
-                        self.__pfade = {str(os.path.join(pfad, datei)): 1}
-
+        self.ergebnis.sort(reverse=True)
+        
     def __str__(self):
-        bericht = 'Suchbericht\n' + 11*'-' + '\n'
-        bericht += 'Suchbegriff: {wort}\nWurzel des Verzeichnisbaums: {wurzel}\n\n'.format(wort=self.__wort, wurzel=self.__wurzel)
+        tabelle =""
+        for (n, pfad) in self.ergebnis:
+            tabelle += "{} ({} Vorkommen)\n".format(pfad, n, self.suchwort)
+        
+        return SUCHBERICHT.format(tabelle, self.durchsucht, self.nicht_lesbar)
 
-        for i in self.__pfade.keys():
-            bericht += '{pfad} ({vorkommen} Vorkommen)'.format(pfad=i, vorkommen=self.__pfade[i])
+# Hauptprogramm
+suchwort = input("Suchwort: ")
+wurzel = input("Wurzelverzeichnis: ")
+bot = Suchroboter(suchwort, wurzel)
 
-        return bericht
+print(bot)    
