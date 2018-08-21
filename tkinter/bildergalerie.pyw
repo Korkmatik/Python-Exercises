@@ -60,9 +60,8 @@ class Image:
             self.currentImage += 1
             return img
         else:
-            self.currentImage = 0
-            img = (self.directory + self.images[self.currentImage][0], self.images[self.currentImage][1])
-            self.currentImage += 1
+            img = (self.directory + self.images[0][0], self.images[0][1])
+            self.currentImage = 1
             return img
 
 Gui()
