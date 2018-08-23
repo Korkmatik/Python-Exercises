@@ -23,6 +23,7 @@ class Texteditor:
         self.window.config(menu=self.menu)
 
         self.__addFileMenue()
+        self.__addTemplateMenu()
 
     def __addFileMenue(self):
         self.filemenue = Menu(self.menu)
@@ -32,6 +33,14 @@ class Texteditor:
         self.filemenue.add_command(label="Ende", command=self.close)
 
         self.menu.add_cascade(label="Datei", menu=self.filemenue)
+
+    def __addTemplateMenu(self):
+        self.templatemenu = Menu(self.menu)
+        self.templatemenu.add_command(label="Rauchen", command=lambda : self.text.insert(INSERT, "Zu beobachten war intensive Rauchentwicklung."))
+        self.templatemenu.add_command(label='Gühen', command=lambda : self.text.insert(INSERT, "Das Reaktionsgemisch glühte."))
+        self.templatemenu.add_command(label='Gas', command=lambda : self.text.insert(INSERT, "Es entwich Gas."))
+
+        self.menu.add_cascade(label="Textbausteine", menu=self.templatemenu)
 
     def open(self):
         self.datei = filedialog.askopenfile()
