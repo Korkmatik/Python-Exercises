@@ -5,7 +5,7 @@ from time import localtime, sleep
 class Digitaluhr:
     def __init__(self):
         self.window = tkinter.Tk()
-        self.txtTime = tkinter.Label(self.window, text='Uhrzeit', font=('Arial', 14), heigh=1)
+        self.txtTime = tkinter.Label(self.window, text='Uhrzeit', font=('Arial', 14), height=1)
         self.txtTime.pack(padx=5, pady=5)
         Uhrzeit(self.txtTime)
 
