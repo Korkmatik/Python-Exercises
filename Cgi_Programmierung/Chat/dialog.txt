@@ -1,1 +1,1 @@
-wepus: hallo<br>wepus: wie geht es dir?<br>wiep: gut und dir?<br>wiephan: super<br>wiephan: ich bin jetzt auch hier<br>
+wepus: <font size="+2" color="#FF0000">hi</font><br>wepus: <font size="+2" color="#FF0000">asdf</font><br>wepus: <font size="-2" color="#d3d3d3">asdfs</font><br>wepus: <font size="+1" color="#000}">adsfsd</font><br>wipius: <font size="+1" color="#000}">asdfa</font><br>wipius: <font size="+1" color="#000}">&ouml;</font><br>wipius: <font size="+2" color="#FF0000">s&ouml;s</font><br>
