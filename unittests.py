@@ -2,7 +2,7 @@ import unittest, random
 
 class TestSort(unittest.TestCase):
     def setUp(self):
-        """Setting up a List and sort it"""
+        """Setting up a List"""
         self.myList = [random.randint(0,100) for i in range(20)]
 
     def testLength(self):
