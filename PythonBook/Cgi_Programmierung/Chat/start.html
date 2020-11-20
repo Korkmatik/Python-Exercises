@@ -1,0 +1,15 @@
+<html>
+    <meta http-equiv="Content-Type" content="charset=utf-8">
+    <title>Python Chat Room</title>
+    <body>
+        <h2>Python Chat</h2>
+        
+        Willkommen im Python Chat Room. <br>
+        Unter welchem Namen möchten Sie hier auftreten?
+        <form method="POST", action="http://localhost/cgi-bin/chat.py">
+            Name: <input type="text", name="username", maxlength=25, lenght=15>
+            <input type="hidden" name="firstContribution" value="Hallo, ich bin gerade gekommen.">
+            <input type="Submit" value="Login">
+        </form>
+    </body>
+</html>
